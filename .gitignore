@@ -1,0 +1,15 @@
+.idea
+
+./target/
+/.idea/.gitignore
+/target/advent-of-code-2022-1.0-SNAPSHOT.jar
+/.idea/compiler.xml
+/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+/.idea/jarRepositories.xml
+/target/classes/day1/exo1/Main.class
+/.idea/misc.xml
+/target/classes/utils/Parsing.class
+/target/maven-archiver/pom.properties
+/.idea/vcs.xml
