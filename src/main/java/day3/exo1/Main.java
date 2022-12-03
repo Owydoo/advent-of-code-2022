@@ -35,7 +35,7 @@ public class Main {
 
     }
 
-    private static int getSumWithPriorities(List<String> errorItemTypes, String itemPriorities) {
+    public static int getSumWithPriorities(List<String> errorItemTypes, String itemPriorities) {
         int res = 0;
         for (String errorItem : errorItemTypes) {
             res += itemPriorities.indexOf(errorItem);
