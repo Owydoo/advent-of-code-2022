@@ -3,9 +3,7 @@ package day4.exo1;
 import utils.Parsing;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,7 +21,11 @@ public class Main {
 
         //compter le nombre de sections entièrement incluses dans l'autre section du couple
         int countIncludedSections = countIncludedSectionsInSectionCouples(sectionCouples);
-        System.out.println("count : " + countIncludedSections);
+        System.out.println("count ex 1 : " + countIncludedSections);
+
+        //Exo 2 - Compter les sections avec au moins un nombre dans une autre section
+        int countOverlappingSections = countOverlappingSection(sectionCouples);
+        System.out.println("count ex 2 : " + countOverlappingSections);
 
     }
 
@@ -52,6 +54,18 @@ public class Main {
         }
         return count;
     }
+
+    private static int countOverlappingSection(List<ElfTeam> elfTeams) {
+        int count = 0;
+        for (ElfTeam elfTeam :
+                elfTeams) {
+            if (elfTeam.getFirst().overlaps(elfTeam.getSecond())){
+                count++;
+            }
+        }
+        return count;
+    }
+
 
 
 }

@@ -15,4 +15,13 @@ public class Section {
     public boolean contains(Section section) {
         return (this.containsNumber(section.getFirst()) && this.containsNumber(section.getLast()));
     }
+
+    public boolean overlaps(Section section) {
+        for (int i = this.getFirst(); i <= this.getLast(); i++) {
+            if (section.containsNumber(i)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
