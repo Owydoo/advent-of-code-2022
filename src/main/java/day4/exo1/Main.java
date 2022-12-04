@@ -2,6 +2,7 @@ package day4.exo1;
 
 import utils.Parsing;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class Main {
         List<String> lines = Parsing.parseTextFile(filename);
 
         //Récupérer les couples de sections
-        Map<Section,Section> sectionCouples = getSectionsCouplesFromLines(lines);
+        List<ElfTeam> sectionCouples = getSectionsCouplesFromLines(lines);
         System.out.println(sectionCouples);
 
         //compter le nombre de sections entièrement incluses dans l'autre section du couple
@@ -26,8 +27,8 @@ public class Main {
 
     }
 
-    private static Map<Section,Section> getSectionsCouplesFromLines(List<String> lines) {
-        Map<Section, Section> sectionCouples = new HashMap<>();
+    private static List<ElfTeam> getSectionsCouplesFromLines(List<String> lines) {
+        List<ElfTeam> sectionCouples = new ArrayList<>();
 
         for (String line :
                 lines) {
@@ -37,18 +38,20 @@ public class Main {
             Section firstSection = new Section(Integer.parseInt(firstSectionString[0]), Integer.parseInt(firstSectionString[1]));
             Section secondSection = new Section(Integer.parseInt(secondSectionString[0]),
                     Integer.parseInt(secondSectionString[1]));
-            sectionCouples.put(firstSection, secondSection);
+            sectionCouples.add(new ElfTeam(firstSection, secondSection));
         }
         return sectionCouples;
     }
 
-    private static int countIncludedSectionsInSectionCouples(Map<Section, Section> sectionCouples) {
+    private static int countIncludedSectionsInSectionCouples(List<ElfTeam> elfTeams) {
         int count = 0;
-        for (Map.Entry<Section, Section> entry: sectionCouples.entrySet()) {
-            if (entry.getKey().oneSectionIncludedInTheOther(entry.getValue())){
+        for (ElfTeam elfTeam : elfTeams) {
+            if (elfTeam.getFirst().contains(elfTeam.getSecond()) || elfTeam.getSecond().contains(elfTeam.getFirst())){
                 count++;
             }
         }
         return count;
     }
+
+
 }
