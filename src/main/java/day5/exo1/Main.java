@@ -23,12 +23,28 @@ public class Main {
         System.out.println(stacks);
 
         // on va bouger les stacks
-        moveStacks(stacks, instructions);
-        System.out.println(stacks);
+//        moveStacks(stacks, instructions);
+//        System.out.println(stacks);
+
+        //on va bouger les crates plusieurs à la fois (exo 2)
+        moveCratesWithCrateMover9001(stacks, instructions);
 
         //Lire le haut de chaque stack
         String res = readStacksTops(stacks);
         System.out.println("res : " + res);
+    }
+
+    private static void moveCratesWithCrateMover9001(Map<Integer, Stack<String>> stacks, List<Instruction> instructions) {
+        for (Instruction instruction : instructions) {
+            //remplir la pince
+            Stack<String> clamp = new Stack<>();
+            for (int i = 0; i < instruction.getNumberOfCrates() ; i++) {
+                clamp.push(stacks.get(instruction.getStartStack()).pop());
+            }
+            for (int i = 0; i < instruction.getNumberOfCrates() ; i++) {
+                stacks.get(instruction.getEndStack()).push(clamp.pop());
+            }
+        }
     }
 
     private static String readStacksTops(Map<Integer, Stack<String>> stacks) {
@@ -149,7 +165,7 @@ public class Main {
         res.put(8, stack8);
         res.put(9, stack9);
 
-//        Stack<Character> stackTest = new Stack<>();
+//        Stack<Character> stackTest = newStack<>();
 //        stackTest.addAll(Arrays.asList('a', 'b', 'c'));
 //        System.out.println(stackTest);
         return res;
