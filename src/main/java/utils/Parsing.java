@@ -10,6 +10,16 @@ import java.util.List;
 
 public class Parsing {
 
+    public static String parseInlineTextFileAsString(String filename) {
+        String res = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            res = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public static List<String> parseTextFile(String filename) {
         List<String> list = new ArrayList<>();
 
