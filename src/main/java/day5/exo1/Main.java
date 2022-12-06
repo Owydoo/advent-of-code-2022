@@ -6,27 +6,25 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Yo twitch");
+        // https://adventofcode.com/2022/day/5
+        System.out.println("Exercices Advent of Code réalisés sur twitch.tv/Owydoo le 05/12/22");
 
         String filename = "src/main/java/day5/inputs/input2.txt";
 
         List<String> lines = Parsing.parseTextFile(filename);
-//        System.out.println(lines);
 
-        //séparer mes lignes pour avoir dans une liste les listes correspondant aux caisses
-        //et une correspondant aux mouvements de la grue
-        List<Instruction> instructions = getMoovesLinesFromLines(lines);
+        // Parsing des instructions dans l'input
+        List<Instruction> instructions = getInstructionsLineByLine(lines);
         System.out.println(instructions);
 
         //get Stacks from cratesLines
         Map<Integer, Stack<String>> stacks = fillStacks();
         System.out.println(stacks);
 
-        // on va bouger les stacks
-//        moveStacks(stacks, instructions);
-//        System.out.println(stacks);
+        // Déplacer les crates instruction par instruction : exo1
+        // moveStacks(stacks, instructions);
 
-        //on va bouger les crates plusieurs à la fois (exo 2)
+        // Déplacer les crates plusieurs à la fois : exo 2
         moveCratesWithCrateMover9001(stacks, instructions);
 
         //Lire le haut de chaque stack
@@ -35,13 +33,15 @@ public class Main {
     }
 
     private static void moveCratesWithCrateMover9001(Map<Integer, Stack<String>> stacks, List<Instruction> instructions) {
+        //pour l'exo2
         for (Instruction instruction : instructions) {
             //remplir la pince
             Stack<String> clamp = new Stack<>();
-            for (int i = 0; i < instruction.getNumberOfCrates() ; i++) {
+            for (int i = 0; i < instruction.getNumberOfCrates(); i++) {
                 clamp.push(stacks.get(instruction.getStartStack()).pop());
             }
-            for (int i = 0; i < instruction.getNumberOfCrates() ; i++) {
+            //vider la pince
+            for (int i = 0; i < instruction.getNumberOfCrates(); i++) {
                 stacks.get(instruction.getEndStack()).push(clamp.pop());
             }
         }
@@ -55,8 +55,8 @@ public class Main {
         return res;
     }
 
-    private static void moveStacks(Map<Integer, Stack<String>> stacks,
-                                                          List<Instruction> instructions) {
+    private static void moveStacks(Map<Integer, Stack<String>> stacks, List<Instruction> instructions) {
+        //pour l'exo 1
         for (Instruction instruction : instructions) {
             for (int i = 0; i < instruction.getNumberOfCrates(); i++) {
                 String crate = stacks.get(instruction.getStartStack()).pop();
@@ -65,7 +65,7 @@ public class Main {
         }
     }
 
-    private static List<Instruction> getMoovesLinesFromLines(List<String> lines) {
+    private static List<Instruction> getInstructionsLineByLine(List<String> lines) {
         List<Instruction> res = new ArrayList<>();
         for (String line : lines) {
             String[] instructionInString = line.split(" ");
@@ -165,9 +165,6 @@ public class Main {
         res.put(8, stack8);
         res.put(9, stack9);
 
-//        Stack<Character> stackTest = newStack<>();
-//        stackTest.addAll(Arrays.asList('a', 'b', 'c'));
-//        System.out.println(stackTest);
         return res;
     }
 }
