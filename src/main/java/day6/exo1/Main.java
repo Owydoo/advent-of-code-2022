@@ -19,9 +19,7 @@ public class Main {
 
         System.out.println(getFirstMakerPosition(input));
 
-
 //        List<Integer> firstMakerPositions = getMakerPositions(lines);
-//
 //        System.out.println(firstMakerPositions);
     }
 
@@ -38,19 +36,24 @@ public class Main {
         boolean isMaker;
         for (int i = 0; i <= input.length() - MAKER_LENGTH; i++) {
             String potentialMaker = input.substring(i, i + MAKER_LENGTH);
-            System.out.println(potentialMaker);
-            isMaker = true;
-            for (int j = 0; j < MAKER_LENGTH; j++) {
-                StringBuilder builder = new StringBuilder(potentialMaker);
-                builder.deleteCharAt(j);
-                System.out.println(builder);
-                if (builder.toString().contains(String.valueOf(potentialMaker.charAt(j)))) {
-                    isMaker = false;
-                }
-            }
+            isMaker = checkPotentialMaker(potentialMaker);
             if (isMaker) return i + MAKER_LENGTH;
-
         }
         return 0;
+    }
+
+    private static boolean checkPotentialMaker(String potentialMaker) {
+        for (int index = 0; index < MAKER_LENGTH; index++) {
+            String tempPotentialMaker = getStringWithoutCharacterAtIndex(potentialMaker, index);
+            if (tempPotentialMaker.contains(String.valueOf(potentialMaker.charAt(index)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static String getStringWithoutCharacterAtIndex(String string, int index) {
+        StringBuilder builder = new StringBuilder(string);
+        return builder.deleteCharAt(index).toString();
     }
 }
