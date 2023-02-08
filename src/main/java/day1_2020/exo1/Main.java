@@ -14,28 +14,27 @@ public class Main {
 
         List<Integer> integerList = inputs.stream().map(Integer::parseInt).collect(Collectors.toList());
 
-        System.out.println("Exo 1 answer : "+ getFirstExoAnswer(integerList));
-        System.out.println("Exo 2 answer : "+ getSecondExoAnswer(integerList));
+        System.out.println("Exo 1 answer : " + getFirstExoAnswer(integerList));
+        System.out.println("Exo 2 answer : " + getSecondExoAnswer(integerList));
     }
 
     private static Integer getSecondExoAnswer(List<Integer> integerList) {
         for (int i = 0; i < integerList.size(); i++) {
-            for (int j = 0; j < integerList.size(); j++) {
-                for (int k = 0; k < integerList.size(); k++) {
-                    if ((integerList.get(i)+integerList.get(j)+integerList.get(k)) == 2020){
-                        return integerList.get(i)*integerList.get(j)*integerList.get(k);
+            for (int j = i + 1; j < integerList.size(); j++) {
+                for (int k = j; k < integerList.size(); k++) {
+                    if ((integerList.get(i) + integerList.get(j) + integerList.get(k)) == 2020) {
+                        return integerList.get(i) * integerList.get(j) * integerList.get(k);
                     }
-
                 }
             }
         }
         return -1;
     }
 
-    private static Integer getFirstExoAnswer(List<Integer> integerList){
+    private static Integer getFirstExoAnswer(List<Integer> integerList) {
         for (int i = 0; i < integerList.size(); i++) {
-            for (int j = 0; j < integerList.size(); j++) {
-                if (integerList.get(i)+integerList.get(j) == 2020){
+            for (int j = i; j < integerList.size(); j++) {
+                if (integerList.get(i) + integerList.get(j) == 2020) {
                     return integerList.get(i) * integerList.get(j);
                 }
             }
