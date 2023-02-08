@@ -2,6 +2,7 @@ package day1_2020.exo1;
 
 import utils.Parsing;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,29 +17,36 @@ public class Main {
 
         System.out.println("Exo 1 answer : " + getFirstExoAnswer(integerList));
         System.out.println("Exo 2 answer : " + getSecondExoAnswer(integerList));
+        Collections.sort(integerList);
+
     }
 
-    private static Integer getSecondExoAnswer(List<Integer> integerList) {
+    private static int getSecondExoAnswer(List<Integer> integerList) {
         for (int i = 0; i < integerList.size(); i++) {
+            int nb1 = integerList.get(i);
             for (int j = i + 1; j < integerList.size(); j++) {
-                for (int k = j; k < integerList.size(); k++) {
-                    if ((integerList.get(i) + integerList.get(j) + integerList.get(k)) == 2020) {
-                        return integerList.get(i) * integerList.get(j) * integerList.get(k);
+                int nb2 = integerList.get(j);
+                for (int k = j + 1; k < integerList.size(); k++) {
+                    int nb3 = integerList.get(k);
+                    if (nb1 + nb2 + nb3 == 2020) {
+                        return nb1 * nb2 * nb3;
                     }
                 }
             }
         }
-        return -1;
+        throw new IllegalArgumentException("Pas de somme donnant 2020");
     }
 
-    private static Integer getFirstExoAnswer(List<Integer> integerList) {
+    private static int getFirstExoAnswer(List<Integer> integerList) {
         for (int i = 0; i < integerList.size(); i++) {
-            for (int j = i; j < integerList.size(); j++) {
+            int nb1 = integerList.get(i);
+            for (int j = i + 1; j < integerList.size(); j++) {
+                int nb2 = integerList.get(j);
                 if (integerList.get(i) + integerList.get(j) == 2020) {
                     return integerList.get(i) * integerList.get(j);
                 }
             }
         }
-        return -1;
+        throw new IllegalArgumentException("Pas de somme donnant 2020");
     }
 }
