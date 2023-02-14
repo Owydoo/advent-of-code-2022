@@ -1,6 +1,6 @@
 .idea
 
-./target/
+/target
 /.idea/.gitignore
 /target/advent-of-code-2022-1.0-SNAPSHOT.jar
 /.idea/compiler.xml
