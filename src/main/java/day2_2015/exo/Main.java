@@ -4,7 +4,6 @@ import utils.Parsing;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -14,11 +13,14 @@ public class Main {
 
         List<Present> presentList = getPresentsFromStringList(inputStrings);
 
-        List<Integer> results = presentList.stream().map(Present::howMuchPaper).collect(Collectors.toList());
+        List<Integer> resultList1 = presentList.stream().map(Present::howMuchPaper).toList();
+        List<Integer> resultList2 = presentList.stream().map(Present::howMuchRibbon).toList();
 
-        int res = results.stream().mapToInt(Integer::intValue).sum();
+        int res1 = resultList1.stream().mapToInt(Integer::intValue).sum();
+        int res2 = resultList2.stream().mapToInt(Integer::intValue).sum();
 
-        System.out.println("Exo 1 : " + res);
+        System.out.println("Exo 1 : " + res1);
+        System.out.println("Exo 2 : " + res2);
     }
 
     private static List<Present> getPresentsFromStringList(List<String> inputStrings) {
