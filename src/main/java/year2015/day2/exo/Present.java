@@ -2,8 +2,8 @@ package year2015.day2.exo;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Data
 public class Present {
@@ -20,12 +20,7 @@ public class Present {
 
     private List<Integer> getTheTwoSmallDimensions() {
         int max = Math.max(l, Math.max(w, h));
-        List<Integer> list = new ArrayList<>();
-        list.add(l);
-        list.add(w);
-        list.add(h);
-        list.remove((Integer) max);
-        return list;
+        return Stream.of(l, w, h).filter(el -> el != max).toList();
     }
 
     public int howMuchRibbon() {
@@ -37,7 +32,8 @@ public class Present {
     }
 
     private int getSmallestPerimeter() {
-        List<Integer> list = getTheTwoSmallDimensions();
-        return list.get(0) * 2 + list.get(1) * 2;
+        return getTheTwoSmallDimensions().stream()
+                .mapToInt(el -> el * 2)
+                .sum();
     }
 }
