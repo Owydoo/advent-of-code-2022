@@ -25,7 +25,7 @@ public class Main {
         int res = 0;
         for (String lineString : inputList) {
             String[] str = lineString.split("\\s+");
-            List<Integer> line = Arrays.stream(str).toList().stream().map(Integer::parseInt).toList();
+            List<Integer> line = Arrays.stream(str).map(Integer::parseInt).toList();
             Pair<Integer, Integer> divisibles = getTheTwoWhichAreEvenlyDivisible(line);
             int maxDivisible = Math.max(divisibles.getFirst(), divisibles.getSecond());
             int minDivisible = Math.min(divisibles.getFirst(), divisibles.getSecond());
@@ -36,8 +36,8 @@ public class Main {
 
     private static Pair<Integer, Integer> getTheTwoWhichAreEvenlyDivisible(List<Integer> line) {
         for (int i = 0; i < line.size(); i++) {
-            for (int j = 0; j < line.size(); j++) {
-                if (i != j && line.get(i) % line.get(j) == 0) {
+            for (int j = i + 1; j < line.size(); j++) {
+                if (i != j && (line.get(i) % line.get(j) == 0 || line.get(j) % line.get(i) == 0)) {
                     return new Pair<>(line.get(i), line.get(j));
                 }
             }
@@ -49,7 +49,7 @@ public class Main {
         int res = 0;
         for (String lineString : inputList) {
             String[] str = lineString.split("\\s+");
-            List<Integer> line = Arrays.stream(str).toList().stream().map(Integer::parseInt).toList();
+            List<Integer> line = Arrays.stream(str).map(Integer::parseInt).toList();
             int min = Collections.min(line);
             int max = Collections.max(line);
             res += max - min;
