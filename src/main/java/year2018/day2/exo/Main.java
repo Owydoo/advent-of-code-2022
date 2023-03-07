@@ -15,9 +15,7 @@ public class Main {
         List<String> inputStringList = Parsing.parseTextFile(filename);
 
         int resExo1 = getExo1Answer(inputStringList);
-        System.out.println("res exo 1 : "+resExo1);
-
-
+        System.out.println("res exo 1 : " + resExo1);
     }
 
     private static int getExo1Answer(List<String> inputStringList) {
@@ -26,40 +24,24 @@ public class Main {
 
         for (String inputLine : inputStringList) {
             Map<Character, Integer> nbCharInLineMap = getNbCharInLine(inputLine);
-            nbLetter2Occurences += countLettersPresentTwice(nbCharInLineMap);
-            nbLetter3Occurences += countLettersPresentThreeTimes(nbCharInLineMap);
+            nbLetter2Occurences += nbCharInLineMap.containsValue(2) ? 1 : 0;
+            nbLetter3Occurences += nbCharInLineMap.containsValue(3) ? 1 : 0;
         }
 
-        return nbLetter2Occurences*nbLetter3Occurences;
+        return nbLetter2Occurences * nbLetter3Occurences;
     }
 
-    private static int countLettersPresentThreeTimes(Map<Character, Integer> nbCharInLineMap) {
-        for (Map.Entry<Character, Integer> entry : nbCharInLineMap.entrySet()) {
-            if (entry.getValue() == 3){
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    private static int countLettersPresentTwice(Map<Character, Integer> nbCharInLineMap) {
-        for (Map.Entry<Character, Integer> entry : nbCharInLineMap.entrySet()) {
-            if (entry.getValue() == 2){
-                return 1;
-            }
-        }
-        return 0;
-    }
 
     private static Map<Character, Integer> getNbCharInLine(String inputLine) {
         Map<Character, Integer> res = new HashMap<>();
         char[] chars = inputLine.toCharArray();
 
         for (char letter : chars) {
-            if (!res.containsKey(letter)){
-                res.put(letter,1);
+            if (!res.containsKey(letter)) {
+                res.put(letter, 1);
+            } else {
+                res.replace(letter, res.get(letter) + 1);
             }
-            else res.put(letter, res.get(letter) + 1);
         }
         return res;
     }
