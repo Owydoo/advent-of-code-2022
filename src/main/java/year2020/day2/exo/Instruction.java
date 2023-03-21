@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class Instruction {
-    int min;
-    int max;
+    int first;
+    int second;
     char letter;
     String password;
 
-    public boolean isPasswordValid() {
+    public boolean isPasswordValidForOldJob() {
         int nbOccurrencesLetter = this.getNbOccurrencesLetterInPassword();
 
-        return (nbOccurrencesLetter >= min && nbOccurrencesLetter <= max);
+        return (nbOccurrencesLetter >= first && nbOccurrencesLetter <= second);
     }
 
     private int getNbOccurrencesLetterInPassword() {
@@ -23,5 +23,9 @@ public class Instruction {
             }
         }
         return res;
+    }
+
+    public boolean isPasswordValidForOTCP() {
+        return (password.charAt(first - 1) == letter ^ password.charAt(second - 1) == letter);
     }
 }

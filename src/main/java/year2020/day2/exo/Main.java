@@ -12,9 +12,27 @@ public class Main {
 
         List<String> inputs = Parsing.parseTextFile(filename);
 
-        int result = getResultExo1(inputs);
+        int resultExo1 = getResultExo1(inputs);
 
-        System.out.println("result : " + result);
+        System.out.println("resultExo1 : " + resultExo1);
+
+        int resultExo2 = getResultExo2(inputs);
+
+        System.out.println("resultExo2 : " + resultExo2);
+
+    }
+
+    private static int getResultExo2(List<String> inputs) {
+        int res = 0;
+
+        for (String input : inputs) {
+            Instruction instruction = getInstructionFromInput(input);
+            if (instruction.isPasswordValidForOTCP()){
+                res++;
+            }
+        }
+
+        return res;
     }
 
     private static int getResultExo1(List<String> inputs) {
@@ -22,7 +40,7 @@ public class Main {
 
         for (String input : inputs) {
             Instruction instruction = getInstructionFromInput(input);
-            if (instruction.isPasswordValid()){
+            if (instruction.isPasswordValidForOldJob()){
                 res++;
             }
         }
@@ -36,8 +54,8 @@ public class Main {
         String[] inputTab = input.split(" ");
 
         String[] ruleTab = inputTab[0].split("-");
-        instruction.setMin(Integer.parseInt(ruleTab[0]));
-        instruction.setMax(Integer.parseInt(ruleTab[1]));
+        instruction.setFirst(Integer.parseInt(ruleTab[0]));
+        instruction.setSecond(Integer.parseInt(ruleTab[1]));
 
         instruction.setLetter(inputTab[1].charAt(0));
 
