@@ -12,55 +12,24 @@ public class Main {
 
         List<String> inputs = Parsing.parseTextFile(filename);
 
-        int resultExo1 = getResultExo1(inputs);
+        List<Instruction> instructions = inputs.stream().map(Instruction::new).toList();
+
+        int resultExo1 = getResultExo1(instructions);
 
         System.out.println("resultExo1 : " + resultExo1);
 
-        int resultExo2 = getResultExo2(inputs);
+        int resultExo2 = getResultExo2(instructions);
 
         System.out.println("resultExo2 : " + resultExo2);
 
     }
 
-    private static int getResultExo2(List<String> inputs) {
-        int res = 0;
-
-        for (String input : inputs) {
-            Instruction instruction = getInstructionFromInput(input);
-            if (instruction.isPasswordValidForOTCP()){
-                res++;
-            }
-        }
-
-        return res;
+    private static int getResultExo2(List<Instruction> instructions) {
+        return instructions.stream().mapToInt(value -> value.isPasswordValidForOTCP() ? 1 : 0).sum();
     }
 
-    private static int getResultExo1(List<String> inputs) {
-        int res = 0;
-
-        for (String input : inputs) {
-            Instruction instruction = getInstructionFromInput(input);
-            if (instruction.isPasswordValidForOldJob()){
-                res++;
-            }
-        }
-
-        return res;
+    private static int getResultExo1(List<Instruction> instructions) {
+        return instructions.stream().mapToInt(value -> value.isPasswordValidForOldJob() ? 1 : 0).sum();
     }
 
-    private static Instruction getInstructionFromInput(String input) {
-        Instruction instruction = new Instruction();
-
-        String[] inputTab = input.split(" ");
-
-        String[] ruleTab = inputTab[0].split("-");
-        instruction.setFirst(Integer.parseInt(ruleTab[0]));
-        instruction.setSecond(Integer.parseInt(ruleTab[1]));
-
-        instruction.setLetter(inputTab[1].charAt(0));
-
-        instruction.setPassword(inputTab[2]);
-
-        return instruction;
-    }
 }
