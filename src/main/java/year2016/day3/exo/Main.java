@@ -9,14 +9,18 @@ import java.util.Queue;
 public class Main {
     public static void main(String[] args) {
         String filename = "src/main/java/year2016/day3/inputs/input.txt";
+//        String filename = "src/main/java/year2016/day3/inputs/inputTestExo2.txt";
 
         List<String> inputInString = Parsing.parseTextFile(filename);
 
         Queue<PotentialTriangle> potentialTriangles = getPotentialTrianglesFromInput(inputInString);
+        Queue<PotentialTriangle> potentialTrianglesForExo2 = getPotentialTrianglesFromInputVertically(inputInString);
 
         int nbOfValidTriangles = getNbValidTrianglesFromTriangleQueue(potentialTriangles);
+        int nbOfValidTrianglesForExo2 = getNbValidTrianglesFromTriangleQueue(potentialTrianglesForExo2);
 
         System.out.println("answer in exo 1 : " + nbOfValidTriangles);
+        System.out.println("answer in exo 2 : " + nbOfValidTrianglesForExo2);
     }
 
     private static int getNbValidTrianglesFromTriangleQueue(Queue<PotentialTriangle> potentialTriangles) {
@@ -35,5 +39,38 @@ public class Main {
             potentialTriangles.add(potentialTriangle);
         }
         return potentialTriangles;
+    }
+
+
+    //EXO2
+    private static Queue<PotentialTriangle> getPotentialTrianglesFromInputVertically(List<String> inputInString) {
+        Queue<PotentialTriangle> potentialTriangles = new ArrayDeque<>();
+
+        int[][] values = getInputInStringAs2DimArray(inputInString);
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < values.length; j += 3) {
+                PotentialTriangle potentialTriangle = new PotentialTriangle();
+                potentialTriangle.setA(values[j][i]);
+                potentialTriangle.setB(values[j + 1][i]);
+                potentialTriangle.setC(values[j + 2][i]);
+                potentialTriangles.add(potentialTriangle);
+            }
+        }
+
+        return potentialTriangles;
+    }
+
+    //EXO2
+    private static int[][] getInputInStringAs2DimArray(List<String> inputInString) {
+        int inputSize = inputInString.size();
+        int[][] result = new int[inputSize][3];
+        for (int i = 0; i < inputSize; i++) {
+            String[] elementInTab = inputInString.get(i).trim().split(" +");
+            result[i][0] = Integer.parseInt(elementInTab[0]);
+            result[i][1] = Integer.parseInt(elementInTab[1]);
+            result[i][2] = Integer.parseInt(elementInTab[2]);
+        }
+        return result;
     }
 }
