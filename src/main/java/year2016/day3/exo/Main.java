@@ -48,12 +48,12 @@ public class Main {
 
         int[][] values = getInputInStringAs2DimArray(inputInString);
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < values.length; j += 3) {
+        for (int columnIndex = 0; columnIndex < 3; columnIndex++) {
+            for (int lineIndex = 0; lineIndex < values.length; lineIndex += 3) {
                 PotentialTriangle potentialTriangle = new PotentialTriangle();
-                potentialTriangle.setA(values[j][i]);
-                potentialTriangle.setB(values[j + 1][i]);
-                potentialTriangle.setC(values[j + 2][i]);
+                potentialTriangle.setA(values[lineIndex][columnIndex]);
+                potentialTriangle.setB(values[lineIndex + 1][columnIndex]);
+                potentialTriangle.setC(values[lineIndex + 2][columnIndex]);
                 potentialTriangles.add(potentialTriangle);
             }
         }
