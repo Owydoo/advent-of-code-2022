@@ -33,15 +33,30 @@ public class Main {
                     .y(matches.get(2))
                     .build();
 
-            Pair<Integer, Integer> inputClaimSize = Pair.<Integer, Integer>builder()
+            final Pair<Integer, Integer> inputClaimSize = Pair.<Integer, Integer>builder()
                     .first(matches.get(3))
                     .second(matches.get(4))
                     .build();
 
-            Claim claim = Claim.builder()
+            final Claim claim = Claim.builder()
                     .origin(inputStartCoordinate)
                     .size(inputClaimSize)
                     .build();
+
+            /*
+             * Pourquoi utiliser les builders ? (@Builder de lombok)
+             * Cela permet de créer des objets complexes, qui n'ont pas forcément tous les champs, sans pour autant
+             * à avoir à créer un grand nombre de constructeurs différents correspondant au nombre d'arguments
+             * dont on a besoin.
+             * Si on utilisait avant le constructeur vide, le builder permet ici de créer un objet en une seule instruction,
+             * ce qui peut nous permettre de créer des objets immutables, et donc plus efficients.
+             * On peut déléguer la responsabilité de la construction d'un objet au builder, cela ne devrait pas
+             * être la responsabilité des setters de le faire.
+             * On peut d'ailleurs modifier par la suite le comportement du builder sans pour autant modifier les setters.
+             *
+             * Il est aussi possible de copier un builder (instancier un objet builder au lieu d'utiliser build() directement)
+             * lorsqu'on veut créer des objets qui ont de nombreux champs en commun sans dupliquer du code
+             */
 
             addClaim(claims, claim);
 
