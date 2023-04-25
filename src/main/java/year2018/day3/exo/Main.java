@@ -19,6 +19,9 @@ public class Main {
 
         Map<Coordinate, Integer> claims = new HashMap<>();
 
+        //forExo2
+        List<Claim> claimList = new ArrayList<>();
+
         for (String input : inputInString) {
             Pattern numberPattern = Pattern.compile("\\d+");
             Matcher matcher = numberPattern.matcher(input);
@@ -39,10 +42,12 @@ public class Main {
                     .build();
 
             final Claim claim = Claim.builder()
+                    .id(matches.get(0))
                     .origin(inputStartCoordinate)
                     .size(inputClaimSize)
                     .build();
 
+            claimList.add(claim);
             /*
              * Pourquoi utiliser les builders ? (@Builder de lombok)
              * Cela permet de créer des objets complexes, qui n'ont pas forcément tous les champs, sans pour autant
@@ -62,8 +67,36 @@ public class Main {
         }
 
         int resForExo1 = countDisputedTissueSquares(claims);
+        int resForExo2 = findUndisputedClaimById(claimList, claims);
 
-        System.out.println(resForExo1);
+        System.out.println("resForExo1 : " + resForExo1);
+        System.out.println("resForExo2 : " + resForExo2);
+
+    }
+
+    //For Exo 2
+    //HORRIBLE
+    private static int findUndisputedClaimById(List<Claim> claimList, Map<Coordinate, Integer> claimsMap) {
+        for (Claim claim : claimList) {
+            boolean found = true;
+            for (int i = 0; i < claim.getSize().getFirst(); i++) {
+                for (int j = 0; j < claim.getSize().getSecond(); j++) {
+                    Coordinate coordinate = Coordinate.builder()
+                            .x(claim.getOrigin().getX() + i)
+                            .y(claim.getOrigin().getY() + j)
+                            .build();
+                    if (claimsMap.containsKey(coordinate)){
+                        if (claimsMap.get(coordinate) > 1){ //désolé
+                            found = false;
+                        }
+                    }
+                }
+            }
+            if (found) {
+                return claim.getId();
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     private static int countDisputedTissueSquares(Map<Coordinate, Integer> claims) {
