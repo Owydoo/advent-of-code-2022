@@ -48,10 +48,9 @@ public class Main {
              * Cela permet de créer des objets complexes, qui n'ont pas forcément tous les champs, sans pour autant
              * à avoir à créer un grand nombre de constructeurs différents correspondant au nombre d'arguments
              * dont on a besoin.
-             * Si on utilisait avant le constructeur vide, le builder permet ici de créer un objet en une seule instruction,
-             * ce qui peut nous permettre de créer des objets immutables, et donc plus efficients.
+             * Si on utilisait avant le constructeur vide, le builder permet ici de créer un objet en une seule instruction.
              * On peut déléguer la responsabilité de la construction d'un objet au builder, cela ne devrait pas
-             * être la responsabilité des setters de le faire.
+             * être la responsabilité des setters.
              * On peut d'ailleurs modifier par la suite le comportement du builder sans pour autant modifier les setters.
              *
              * Il est aussi possible de copier un builder (instancier un objet builder au lieu d'utiliser build() directement)
