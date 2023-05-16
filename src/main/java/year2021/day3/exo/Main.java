@@ -12,31 +12,34 @@ public class Main {
 
         List<String> inputString = Parsing.parseTextFile(filename);
 
-        Pair<String, String> submarineData = findGammaRate(inputString);
-        String gammaRateBinary = submarineData.getFirst();
-        String epsilonRateBinary = submarineData.getSecond();
+        Pair<String, String> submarineRates = findSubmarineRates(inputString);
+
+        String gammaRateBinary = submarineRates.getFirst();
+        String epsilonRateBinary = submarineRates.getSecond();
 
         int powerConsumption = Integer.parseInt(gammaRateBinary, 2) * Integer.parseInt(epsilonRateBinary, 2);
         System.out.println("Answer exo 1 : Power consumption --> " + powerConsumption);
     }
 
-    private static Pair<String, String> findGammaRate(List<String> inputString) {
+    /**
+     * for exo 1
+     */
+    private static Pair<String, String> findSubmarineRates(List<String> inputString) {
         StringBuilder gammaRateFound = new StringBuilder();
         StringBuilder epsilonRateFound = new StringBuilder();
         int binaryNumberLength = inputString.get(0).length();
 
-
         for (int digit = 0; digit < binaryNumberLength; digit++) {
-            int bitAtOneCount = 0;
-            for (String binaryNumber : inputString) {
-                bitAtOneCount += binaryNumber.charAt(digit) == '1' ? 1 : 0;
-            }
+            final int finalDigit = digit;
 
-            if (bitAtOneCount > (inputString.size()/2)){
+            int bitAtOneCount = (int) inputString.stream()
+                    .filter(word -> word.charAt(finalDigit) == '1')
+                    .count();
+
+            if (bitAtOneCount > (inputString.size() / 2)) {
                 gammaRateFound.append("1");
                 epsilonRateFound.append("0");
-            }
-            else {
+            } else {
                 gammaRateFound.append("0");
                 epsilonRateFound.append("1");
             }
