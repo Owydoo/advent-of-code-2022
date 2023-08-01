@@ -35,18 +35,8 @@ public class Main {
      * @return
      */
     private static boolean isAStringNiceForExo2(String word) {
-        return hasADoublePairWithNoOverlap(word) && hasOneLetterRepeatedWithOneLetterBetween(word);
-    }
-
-    private static boolean hasOneLetterRepeatedWithOneLetterBetween(String word) {
-        Pattern oneLetterRepeatedWithOneBetweenPattern = Pattern.compile(".*([a-z]).{1}\\1.*");
-        Matcher matcher = oneLetterRepeatedWithOneBetweenPattern.matcher(word);
-        return matcher.find();
-    }
-
-    private static boolean hasADoublePairWithNoOverlap(String word) {
-        Pattern doblePairPattern = Pattern.compile(".*([a-z])([a-z]).*\\1\\2.*");
-        Matcher matcher = doblePairPattern.matcher(word);
+        Pattern exo2Pattern = Pattern.compile("(?=.*([a-z])([a-z]).*\\1\\2.*)(?=.*([a-z]).{1}\\3.*)");
+        Matcher matcher = exo2Pattern.matcher(word);
         return matcher.find();
     }
 
