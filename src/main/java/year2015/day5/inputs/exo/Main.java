@@ -4,11 +4,11 @@ import utils.Parsing;
 
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("hello");
-
         String filename = "src/main/java/year2015/day5/inputs/input.txt";
         List<String> input = Parsing.parseTextFile(filename);
 
@@ -17,6 +17,37 @@ public class Main {
                 .count();
 
         System.out.println("result exo 1 : " + resultExo1);
+
+        int resultExo2 = (int) input.stream()
+                .filter(Main::isAStringNiceForExo2)
+                .count();
+
+        System.out.println("result exo 2 : " + resultExo2);
+    }
+
+    /**
+     * Les 2 règles pour qu'un mot soit bon dans l'exo 2
+     * - Une paire de deux lettres doit apparaître au moins 2 fois dans le mot
+     * sans empilement (aaaa est bon mais aaa pas bon)
+     * - Une lettre se répète avec exactement une lettre entre les deux (xyx est bon et aaa est bon)
+     *
+     * @param word
+     * @return
+     */
+    private static boolean isAStringNiceForExo2(String word) {
+        return hasADoublePairWithNoOverlap(word) && hasOneLetterRepeatedWithOneLetterBetween(word);
+    }
+
+    private static boolean hasOneLetterRepeatedWithOneLetterBetween(String word) {
+        Pattern oneLetterRepeatedWithOneBetweenPattern = Pattern.compile(".*([a-z]).{1}\\1.*");
+        Matcher matcher = oneLetterRepeatedWithOneBetweenPattern.matcher(word);
+        return matcher.find();
+    }
+
+    private static boolean hasADoublePairWithNoOverlap(String word) {
+        Pattern doblePairPattern = Pattern.compile(".*([a-z])([a-z]).*\\1\\2.*");
+        Matcher matcher = doblePairPattern.matcher(word);
+        return matcher.find();
     }
 
     private static boolean isAStringNice(String word) {
@@ -31,10 +62,12 @@ public class Main {
     private static boolean hasAtLeastThreeVowels(String word) {
         Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
         int nbVowels = 0;
-        for (char c : word.toCharArray()) {
-            if (vowels.contains(c)){
+        int index = 0;
+        while (nbVowels < 3 && index < word.length()) {
+            if (vowels.contains(word.charAt(index))) {
                 nbVowels++;
             }
+            index++;
         }
         return nbVowels >= 3;
 
