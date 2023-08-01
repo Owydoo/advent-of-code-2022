@@ -35,7 +35,7 @@ public class Main {
      * @return
      */
     private static boolean isAStringNiceForExo2(String word) {
-        Pattern exo2Pattern = Pattern.compile("(?=.*([a-z])([a-z]).*\\1\\2.*)(?=.*([a-z]).{1}\\3.*)");
+        Pattern exo2Pattern = Pattern.compile("(?=.*([a-z])([a-z]).*\\1\\2.*)(?=.*([a-z]).\\3.*)");
         Matcher matcher = exo2Pattern.matcher(word);
         return matcher.find();
     }
