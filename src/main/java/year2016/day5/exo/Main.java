@@ -3,14 +3,13 @@ package year2016.day5.exo;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
         String puzzleInput = "wtnhxymk";
         //prendre l'input et y ajouter un index croissant
 
