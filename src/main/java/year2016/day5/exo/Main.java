@@ -66,8 +66,9 @@ public class Main {
             String inputToHash = input;
             inputToHash += index;
             String hash = findHashFromInput(inputToHash);
-            if (isHashStartsWithFiveZeros(hash) && (hash.charAt(5) <= '7')) {
-                int indexToChangeInPassword = Integer.parseInt(String.valueOf(hash.charAt(5)));
+            char sixthCharFromHash = hash.charAt(5);
+            if (isHashStartsWithFiveZeros(hash) && (sixthCharFromHash <= '7') && (sixthCharFromHash <= '7')) {
+                int indexToChangeInPassword = Integer.parseInt(String.valueOf(sixthCharFromHash));
 
                 //pour empêcher qu'une valeur soit écrasée
                 if (Boolean.FALSE.equals(positionsWritten.get(indexToChangeInPassword))) {
