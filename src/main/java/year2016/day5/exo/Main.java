@@ -16,14 +16,12 @@ public class Main {
         StringBuilder passwordBuilder = new StringBuilder();
 
         int index = 0;
-        boolean isPasswordFound = false;
-        while (!isPasswordFound) {
+        while (passwordBuilder.length() < 8) {
             String inputToHash = puzzleInput;
             inputToHash += index;
 
             passwordBuilder.append(findSixthCharIfHashStartsWithFiveZeros(inputToHash));
 
-            isPasswordFound = passwordBuilder.length() >= 8;
             index++;
         }
 
@@ -43,7 +41,7 @@ public class Main {
     private static String findSixthCharIfHashStartsWithFiveZeros(String input) {
         String hash = Hashing.md5().hashString(input, Charsets.UTF_8).toString();
         //vérifier si le hash commence par 00000
-        Pattern pattern = Pattern.compile("^(00000)");
+        Pattern pattern = Pattern.compile("^00000");
         Matcher matcher = pattern.matcher(hash);
         //si oui, renvoyer le 6ème char du hash
         return matcher.find() ? Character.toString(hash.charAt(5)) : "";
@@ -77,11 +75,6 @@ public class Main {
                     positionsWritten.put(indexToChangeInPassword, true);
                 }
 
-                System.out.println("==============");
-                for (Map.Entry<Integer, Boolean> entry : positionsWritten.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }
-                System.out.println("==============");
             }
             isPasswordFound = areAllPositionFound(positionsWritten);
 
@@ -92,7 +85,7 @@ public class Main {
     }
 
     private static boolean isHashStartsWithFiveZeros(String hash) {
-        Pattern pattern = Pattern.compile("^(00000)");
+        Pattern pattern = Pattern.compile("^00000");
         Matcher matcher = pattern.matcher(hash);
         return matcher.find();
     }
