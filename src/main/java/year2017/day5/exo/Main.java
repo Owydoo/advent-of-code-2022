@@ -10,9 +10,8 @@ public class Main {
         String filename = "src/main/java/year2017/day5/inputs/input.txt";
 //        String filename = "src/main/java/year2017/day5/inputs/inputTest.txt";
 
-        List<Integer> inputList = new ArrayList<>(
-                Parsing.parseTextFile(filename).stream().map(Integer::parseInt).toList()
-        );
+        List<Integer> inputList =
+                Parsing.parseTextFile(filename).stream().map(Integer::parseInt).toList();
 
         int stepsCounterForExo1 = countStepsInInputListExo1(inputList);
         System.out.println("answer exo 1 : " + stepsCounterForExo1);
@@ -29,7 +28,7 @@ public class Main {
 
         while (currentIndex >= 0 && currentIndex < listCopy.size()) {
             int currentValue = listCopy.get(currentIndex);
-            if (currentValue >= 3){
+            if (currentValue >= 3) {
                 listCopy.set(currentIndex, currentValue - 1);
             } else {
                 listCopy.set(currentIndex, currentValue + 1);
