@@ -21,8 +21,7 @@ public class Main {
         boolean[][] lightGrid = new boolean[1000][1000];
         Arrays.stream(lightGrid).forEach(array -> Arrays.fill(array, false));
 
-        //pour chaque Instruction
-        //effectuer instruction
+        //effectuer instructions
         for (SantaInstruction santaInstruction : santaInstructions) {
             computeInstruction(santaInstruction, lightGrid);
         }
