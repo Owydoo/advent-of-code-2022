@@ -9,8 +9,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("yo");
-
 //        List<String> inputWords = Parsing.parseTextFile("src/main/java/year2016/day6/inputs/inputTest.txt");
         List<String> inputWords = Parsing.parseTextFile("src/main/java/year2016/day6/inputs/input.txt");
 
@@ -23,7 +21,7 @@ public class Main {
             for (String word : inputWords) {
                 //pour chaque mot, récup carac
                 char currentChar = word.charAt(position);
-                //Map du nombre de carac pour cette position
+                //ajout de 1 pour chaque carac dans la map
                 nbCharAtPosition.merge(currentChar, 1, Integer::sum);
             }
             //ajout du carac max dans une string
