@@ -2,18 +2,27 @@ package year2023.day2.exo;
 
 import utils.Parsing;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         List<String> inputLines = Parsing.parseTextFile("src/main/java/year2023/day2/inputs/input.txt");
-
-        System.out.println(inputLines);
+//        List<String> inputLines = Parsing.parseTextFile("src/main/java/year2023/day2/inputs/inputTest.txt");
 
         //group regex avec nombres de la carte à gauche | mes nombres à droites
-        int counter = 0;
+        int counterExo1 = 0;
+
+        //init map for exo 2
+        Map<Integer, Integer> scratchCardsInstances = new HashMap<>();
+        for (int i = 1; i <= inputLines.size(); i++) {
+            scratchCardsInstances.put(i, 1);
+        }
+
+        int cardNumber = 1;
         for (String inputLine : inputLines) {
             String[] firstTab = inputLine.split(": ");
             String[] secondTab = firstTab[1].split("[|]");
@@ -36,17 +45,32 @@ public class Main {
             }
 
             //compter le nombre de match
-            int currentCounter = 0;
+            int nbMatchForCard = 0;
             for (Integer myNumber : myNumbers) {
-                if (cardNumbers.contains(myNumber)){
-                    currentCounter++;
+                if (cardNumbers.contains(myNumber)) {
+                    nbMatchForCard++;
                 }
             }
 
-            //ajouter au compteur 2^(nbMatch-1)
-            counter += (int) Math.pow(2d, (double) (currentCounter-1));
+            //ajouter au compteur 2^(nbMatch-1) -- exo 1
+            counterExo1 += (int) Math.pow(2d, (double) (nbMatchForCard - 1));
+
+            //exo 2
+            for (int i = 1; i <= nbMatchForCard; i++) {
+                scratchCardsInstances.put(
+                        cardNumber + i,
+                        scratchCardsInstances.get(cardNumber + i) + scratchCardsInstances.get(cardNumber)
+                );
+                System.out.println("yo");
+            }
+
+            cardNumber++;
         }
 
-        System.out.println("counter : " + counter);
+
+        System.out.println("counter : " + counterExo1);
+
+        int counterExo2 = scratchCardsInstances.values().stream().reduce(0, Integer::sum);
+        System.out.println("counter exo 2 : " + counterExo2);
     }
 }
