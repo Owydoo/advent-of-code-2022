@@ -1,4 +1,4 @@
-package year2023.day2.exo;
+package year2023.day4.exo;
 
 import utils.Parsing;
 
@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> inputLines = Parsing.parseTextFile("src/main/java/year2023/day2/inputs/input.txt");
-//        List<String> inputLines = Parsing.parseTextFile("src/main/java/year2023/day2/inputs/inputTest.txt");
+        List<String> inputLines = Parsing.parseTextFile("src/main/java/year2023/day4/inputs/input.txt");
+//        List<String> inputLines = Parsing.parseTextFile("src/main/java/year2023/day4/inputs/inputTest.txt");
 
         //group regex avec nombres de la carte à gauche | mes nombres à droites
         int counterExo1 = 0;
@@ -53,7 +53,7 @@ public class Main {
             }
 
             //ajouter au compteur 2^(nbMatch-1) -- exo 1
-            counterExo1 += (int) Math.pow(2d, (double) (nbMatchForCard - 1));
+            counterExo1 += (int) Math.pow(2d, (nbMatchForCard - 1));
 
             //exo 2
             for (int i = 1; i <= nbMatchForCard; i++) {
@@ -61,7 +61,6 @@ public class Main {
                         cardNumber + i,
                         scratchCardsInstances.get(cardNumber + i) + scratchCardsInstances.get(cardNumber)
                 );
-                System.out.println("yo");
             }
 
             cardNumber++;
