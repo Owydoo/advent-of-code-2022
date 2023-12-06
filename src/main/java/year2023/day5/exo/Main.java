@@ -16,15 +16,12 @@ public class Main {
 
         List<String> inputList = Parsing.parseTextFile(filename);
 
-        System.out.println(inputList);
-
         Pattern numberPattern = Pattern.compile("\\d+");
         List<Long> seeds = new ArrayList<>(numberPattern.matcher(inputList.get(0)).results()
                 .map(MatchResult::group)
                 .map(Long::parseLong)
                 .toList());
 
-        System.out.println(seeds);
 
         MapperNameEnum currentLine = null;
         MapperObject mapperObject = null;
@@ -34,7 +31,6 @@ public class Main {
         for (String line : inputList) {
             if (MapperNameEnum.inEnum(line)) {
                 currentLine = MapperNameEnum.valueOfLabel(line);
-                System.out.println(currentLine);
                 mapperObject = new MapperObject(currentLine);
                 mapperObjects.add(mapperObject);
                 continue;
