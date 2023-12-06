@@ -52,26 +52,16 @@ public class Main {
             }
         }
         //traitement
-        //pour chaque graîne, parcourir tous les mappersObject
+        //pour chaque graîne, parcourir tous les mappersObject et mapper
         for (int i = 0; i < seeds.size(); i++) {
             for (MapperObject currentMapperObject : mapperObjects) {
                 seeds.set(i, currentMapperObject.mapSeed(seeds.get(i)));
             }
         }
-//        System.out.println(mapperObjects);
-        System.out.println(seeds);
 
         long min = Collections.min(seeds);
 
-        System.out.println("min : " + min);
-
-
-        //regarder les lignes
-        //si la ligne est dans l'enum
-        //je remplis un objet mapper
-        //une phrase
-        //une liste de mapper
-        //Mapper = destination range start, source range start range length
+        System.out.println("min, answer exo 1 : " + min);
 
 
     }
